@@ -9,6 +9,7 @@ defmodule MapGrid.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       package: package(),
+      description: description(),
 
       # Docs
       name: "MapGrid",
@@ -22,6 +23,14 @@ defmodule MapGrid.MixProject do
     [
       extra_applications: [:logger]
     ]
+  end
+
+  defp description() do
+    """
+    MapGrid allows you to convert an array of maps or structs to a tabular structure,
+    which includes the key on top and adds the values below as arrays. Usefull for
+    ecto queries exporting to CSV using nimble_csv for instance.
+    """
   end
 
   # Run "mix help deps" to learn about dependencies.

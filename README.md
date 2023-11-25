@@ -1,11 +1,12 @@
 # MapGrid
 
-**TODO: Add description**
+MapGrid allows you to convert an array of maps or structs to a tabular structure,
+which includes the key on top and adds the values below as arrays. Usefull for
+ecto queries exporting to CSV using nimble_csv for instance.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `map_grid` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `map_grid` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -15,7 +16,5 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/map_grid>.
+The docs can be found at <https://hexdocs.pm/map_grid>.
 
