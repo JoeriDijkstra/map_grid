@@ -18,4 +18,15 @@ defmodule MapGridTest do
     assert [[:name, :age], ["john", 99], ["doe", "some description", 100]] ==
              MapGrid.convert(maps)
   end
+
+  test "with a function" do
+    maps = [%{name: "john", age: 99}, %{name: "doe", age: 100, desc: "some description"}]
+
+    function = fn x ->
+      Map.put(x, :batch, 3)
+    end
+
+    assert [[:name, :batch, :age], ["john", 3, 99], ["doe", "some description", 3, 100]] ==
+             MapGrid.convert(maps, item_function: function)
+  end
 end
