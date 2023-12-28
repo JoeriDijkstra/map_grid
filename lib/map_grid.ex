@@ -7,15 +7,30 @@ defmodule MapGrid do
 
   @doc """
   Function to convert from an array of maps to a tabular data structure.
-  Function expects all maps to be equal, like a struct would be.
+  Function expects all maps to be equal, like a struct would be, but it is not
+  limited to structs.
 
-  you can also pass a function to change the item as you see fit, with the
-  :item_function option.
-
-  ## Examples
+  ## Example
 
       iex > MapGrid.convert([%{name: "john", age: 99}, %{name: "doe", age: 100}])
       [[:name", :age], ["john", 99], ["doe", 100]]
+
+  ## Options
+
+  ## Item function
+  This option allows you to define a function with an arity of one to be executed on each item. The value is an array.
+
+      iex > function = fn Map.put(&1, :batch, 3) end
+      iex > MapGrid.convert([%{name: "john", age: 99}, %{name: "doe", age: 100}], item_function: function)
+      [[:name, :batch, :age], ["john", 3, 99], ["doe", "some description", 3, 100]]
+
+  ## Keys
+  This option expects an array of atoms and defines the **order** of the tabular structure. This is important to be able to
+  ignore certain keys and include keys added via the item_function.
+
+      iex > function = fn Map.put(&1, :batch, 3) end
+      iex > MapGrid.convert([%{name: "john", age: 99}, %{name: "doe", age: 100}], item_function: function)
+      [[:name, :batch, :age], ["john", 3, 99], ["doe", "some description", 3, 100]]
   """
   def convert(maps, opts \\ []) do
     maps

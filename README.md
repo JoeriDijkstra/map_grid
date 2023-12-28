@@ -18,3 +18,19 @@ end
 
 The docs can be found at <https://hexdocs.pm/map_grid>.
 
+## Contributing
+To contribute, first clone the repository and then install the dependencies:
+`mix deps.get`
+Make sure the tests pass:
+`mix test`
+Make your change, add tests for your change, and make sure they pass again:
+`mix test`
+Push to a non-master branch and submit a pull request. 
+
+Some things to keep in mind to get your pull request approved:
+- Write tests
+- Write documentation
+- Put some thought in your commit message, should start with fix, feature or chore followed by a colon
+- Try to match the current style / file structure
+
+Thank you for contributing!
