@@ -59,8 +59,6 @@ defmodule MapGrid do
   end
 
   defp apply_options(item, options) do
-    IO.inspect(options, label: "Opts")
-
     item
     |> apply_function(options)
     |> reduce_to_keys(options)
