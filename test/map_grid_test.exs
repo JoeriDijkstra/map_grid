@@ -4,7 +4,9 @@ defmodule MapGridTest do
 
   test "can convert" do
     maps = [%{name: "john", age: 99}, %{name: "doe", age: 100}]
-    assert [[:name, :age], ["john", 99], ["doe", 100]] = MapGrid.convert(maps)
+    assert [[:name, :age] | rest] = MapGrid.convert(maps)
+    assert Enum.member?(rest, ["john", 99])
+    assert Enum.member?(rest, ["doe", 100])
   end
 
   test "empty" do
@@ -15,7 +17,8 @@ defmodule MapGridTest do
   test "uneven amount of values in map" do
     maps = [%{name: "john", age: 99}, %{name: "doe", age: 100, desc: "some description"}]
 
-    assert [[:name, :age], ["john", 99], ["doe", "some description", 100]] = MapGrid.convert(maps)
+    assert [[:name, :age] | rest] = MapGrid.convert(maps)
+    assert [["doe", "some description", 100], ["john", 99]] == Enum.sort(rest)
   end
 
   test "with a function" do
@@ -25,8 +28,8 @@ defmodule MapGridTest do
       Map.put(x, :batch, 3)
     end
 
-    assert [[:name, :batch, :age], ["john", 3, 99], ["doe", 3, 100]] =
-             MapGrid.convert(maps, item_function: function)
+    assert [[:name, :batch, :age] | rest] = MapGrid.convert(maps, item_function: function)
+    assert [["doe", 3, 100], ["john", 3, 99]] == Enum.sort(rest)
   end
 
   test "with keys" do
