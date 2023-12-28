@@ -20,7 +20,7 @@ defmodule MapGridTest do
   end
 
   test "with a function" do
-    maps = [%{name: "john", age: 99}, %{name: "doe", age: 100, desc: "some description"}]
+    maps = [%{name: "john", age: 99}, %{name: "doe", age: 100}]
 
     function = fn x ->
       Map.put(x, :batch, 3)
@@ -28,5 +28,12 @@ defmodule MapGridTest do
 
     assert [[:name, :batch, :age], ["john", 3, 99], ["doe", "some description", 3, 100]] ==
              MapGrid.convert(maps, item_function: function)
+  end
+
+  test "with keys" do
+    maps = [%{name: "john", age: 99, gender: "male"}, %{name: "doe", age: 100, gender: "male"}]
+
+    assert [[:name, :age], ["john", 99], ["doe", 100]] ==
+             MapGrid.convert(maps, keys: [:name, :age])
   end
 end

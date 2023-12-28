@@ -19,7 +19,7 @@ defmodule MapGrid do
   """
   def convert(maps, opts \\ []) do
     maps
-    |> do_convert(nil, opts)
+    |> do_convert(nil, Enum.into(opts, %{}))
     |> Enum.reverse()
   end
 
@@ -30,6 +30,7 @@ defmodule MapGrid do
       item
       |> apply_options(opts)
       |> Enum.reduce([], fn {_, v}, values -> [v | values] end)
+
     do_convert(rest, [values | data], opts)
   end
 
@@ -38,11 +39,24 @@ defmodule MapGrid do
       item
       |> apply_options(opts)
       |> Enum.reduce([], fn {k, _}, keys -> [k | keys] end)
+
     do_convert(items, [keys], opts)
   end
 
-  defp apply_options(item, options), do: apply_function(item, options)
+  defp apply_options(item, options) do
+    IO.inspect(options, label: "Opts")
 
-  defp apply_function(item, [item_function: function]), do: function.(item)
+    item
+    |> apply_function(options)
+    |> reduce_to_keys(options)
+  end
+
+  defp apply_function(item, %{item_function: function}), do: function.(item)
   defp apply_function(item, _), do: item
+
+  defp reduce_to_keys(item, %{keys: keys}) do
+    Enum.reduce(keys, [], &[{&1, Map.get(item, &1)} | &2])
+  end
+
+  defp reduce_to_keys(item, _), do: item
 end
