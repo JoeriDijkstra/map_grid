@@ -32,6 +32,7 @@ defmodule MapGrid do
       iex > MapGrid.convert([%{name: "john", age: 99}, %{name: "doe", age: 100}], item_function: function)
       [[:name, :batch, :age], ["john", 3, 99], ["doe", "some description", 3, 100]]
   """
+  @spec convert([map()], keyword()) :: list()
   def convert(maps, opts \\ []) do
     maps
     |> do_convert(nil, Enum.into(opts, %{}))
