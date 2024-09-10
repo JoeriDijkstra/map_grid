@@ -4,7 +4,7 @@ defmodule MapGrid.MixProject do
   def project do
     [
       app: :map_grid,
-      version: "1.0.2",
+      version: "1.1.0",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
